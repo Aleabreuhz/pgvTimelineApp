@@ -9,7 +9,6 @@ import {UsuariosService} from "../service/usuarios.service";
 })
 export class TimelinesPage implements OnInit {
   timelines: any = [];
-
   timelinesForm: any = {
     id: '',
     titulo: '',
@@ -17,13 +16,13 @@ export class TimelinesPage implements OnInit {
     nombre_creador:''
   };
   usuarios: any = [];
-  usuarioValido: boolean = true;
   isEditing: boolean = false;
-  constructor(private timelinesService: TimelinesService,    private usuariosService: UsuariosService, private navCtrl: NavController ) { }
+  constructor(private timelinesService: TimelinesService,    private usuariosService: UsuariosService
+    ,  private navCtrl: NavController ) { }
 
   ngOnInit() {
-    this.getAllUsuarios();
     this.getAllTimelines();
+    this.getAllUsuarios();
   }
   getAllTimelines(){
     this.timelinesService.getTimelines().subscribe(response => {
@@ -38,15 +37,10 @@ export class TimelinesPage implements OnInit {
   }
 
   addTimelines() {
-    this.verificarUsuario(this.timelinesForm.nombre_creador);
-    if (this.usuarioValido) {
-      this.timelinesService.addTimelines(this.timelinesForm).subscribe(response => {
-        this.getAllTimelines();
-        this.resetForm();
-      });
-    } else {
-      console.error('No se puede guardar: el nombre del creador no es válido.');
-    }
+    this.timelinesService.addTimelines(this.timelinesForm).subscribe(response => {
+      this.getAllTimelines();
+      this.resetForm();
+    });
   }
 
   // Editar timelines
@@ -62,18 +56,7 @@ export class TimelinesPage implements OnInit {
       this.resetForm();
     });
   }
-  verificarUsuario(nombre: string) {
-    if (!this.usuarios || this.usuarios.length === 0) {
-      console.error('La lista de usuarios no está cargada.');
-      return;
-    }
 
-    this.usuarioValido = this.usuarios.some(usuario => usuario.nombreUsuario === nombre);
-
-    if (!this.usuarioValido) {
-      console.error('El usuario ingresado no es válido.');
-    }
-  }
   // Eliminar timelines
   deleteTimelines(id: number) {
     this.timelinesService.deleteTimelines(id).subscribe(response => {
@@ -87,6 +70,5 @@ export class TimelinesPage implements OnInit {
   resetForm() {
     this.timelinesForm = { id: null, nombre: '', email: '' };
     this.isEditing = false;
-    this.usuarioValido = true;
   }
 }

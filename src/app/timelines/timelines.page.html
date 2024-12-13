@@ -41,13 +41,14 @@
         <ion-input [(ngModel)]="timelinesForm.descripcion"></ion-input>
       </ion-item>
 
+
       <ion-item style="background: rgba(255, 255, 255, 0.8); border-radius: 10px; margin-bottom: 10px;">
         <ion-label position="floating">Creador</ion-label>
-        <ion-input
-          [(ngModel)]="timelinesForm.nombre_creador"
-          (ionBlur)="verificarUsuario(timelinesForm.nombre_creador)"
-          placeholder="Escribe el nombre de usuario">
-        </ion-input>
+        <ion-select [(ngModel)]="timelinesForm.nombre_creador" interface="popover">
+          <ion-select-option *ngFor="let usuario of usuarios" [value]="usuario.id">
+            {{ usuario.nombreUsuario }}
+          </ion-select-option>
+        </ion-select>
       </ion-item>
 
       <div class="buttons" style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
