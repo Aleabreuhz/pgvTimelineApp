@@ -1,22 +1,80 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>usuarios</ion-title>
+  <ion-toolbar style="text-align: center; background: transparent;">
+    <ion-title style="font-size: 1.5rem; color: #fff;">usuarios</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<div style="background: linear-gradient(180deg, rgba(67, 110, 203, 1) 0%, rgba(166, 79, 196, 0.9) 91%); color: #fff; overflow-y: auto;">
+
   <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">usuarios</ion-title>
+    <ion-toolbar style="text-align: center; background: transparent;">
+      <ion-title size="large" style="color: #fff;">Usuarios</ion-title>
     </ion-toolbar>
   </ion-header>
-<div>hola</div>
-<ion-list>
-  <ion-item *ngFor="let u of usuarios">
-    <ion-label>
-      <h1>{{u.nombre}}</h1>
-      <p>{{u.apellido}}</p>
-    </ion-label>
-  </ion-item>
-</ion-list>
-</ion-content>
+
+  <ion-list style="background: transparent;padding: 1em; margin-top: 10px;">
+    <ion-item *ngFor="let u of usuarios" style="border-radius: 15px; margin-bottom: 10px;">
+      <ion-label>
+        <p>{{ u.id }}</p>
+        <h2>{{ u.nombre }}</h2>
+        <p>{{ u.correoElectronico }}</p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button (click)="editUsuario(u)">Editar</ion-button>
+        <ion-button color="danger" (click)="deleteUsuario(u.id)">Borrar</ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+
+  <ion-card style="background: transparent; box-shadow: none;">
+    <ion-card-header>
+      <ion-card-title style="color: #fff; text-align: center;">{{ isEditing ? 'Editar Usuario' : 'Añadir Usuario' }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item style="background: rgba(255, 255, 255, 0.8); border-radius: 10px; margin-bottom: 10px;">
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input [(ngModel)]="usuarioForm.nombre" required></ion-input>
+      </ion-item>
+      <div *ngIf="formErrors.nombre" style="color: red; font-size: 0.9rem;">El nombre es obligatorio.</div>
+
+      <ion-item style="background: rgba(255, 255, 255, 0.8); border-radius: 10px; margin-bottom: 10px;">
+        <ion-label position="floating">Apellido</ion-label>
+        <ion-input [(ngModel)]="usuarioForm.apellidos" required></ion-input>
+      </ion-item>
+      <div *ngIf="formErrors.apellidos" style="color: red; font-size: 0.9rem;">El apellido es obligatorio.</div>
+
+      <ion-item style="background: rgba(255, 255, 255, 0.8); border-radius: 10px; margin-bottom: 10px;">
+        <ion-label position="floating">Email</ion-label>
+        <ion-input [(ngModel)]="usuarioForm.correoElectronico" required type="email"></ion-input>
+      </ion-item>
+      <div *ngIf="formErrors.email" style="color: red; font-size: 0.9rem;">El email no es válido.</div>
+
+      <ion-item style="background: rgba(255, 255, 255, 0.8); border-radius: 10px; margin-bottom: 10px;">
+        <ion-label position="floating">Telefono</ion-label>
+        <ion-input [(ngModel)]="usuarioForm.numeroTelefono" required type="tel" pattern="[0-9]{10}"></ion-input>
+      </ion-item>
+      <div *ngIf="formErrors.telefono" style="color: red; font-size: 0.9rem;">El teléfono debe ser un número válido de 10 dígitos.</div>
+
+      <ion-item style="background: rgba(255, 255, 255, 0.8); border-radius: 10px; margin-bottom: 10px; display: flex; flex-direction: column; align-items: center;">
+        <ion-label position="floating">Nombre Usuario</ion-label>
+        <ion-input [(ngModel)]="usuarioForm.nombreUsuario" required></ion-input>
+      </ion-item>
+      <div *ngIf="formErrors.nombreUsuario" style="color: red; font-size: 0.9rem;">El nombre de usuario es obligatorio.</div>
+
+      <ion-item style="background: rgba(255, 255, 255, 0.8); border-radius: 10px;">
+        <ion-label position="relative">Fecha de Nacimiento</ion-label>
+        <ion-datetime presentation="date" [(ngModel)]="usuarioForm.fechaDeNacimiento" required></ion-datetime>
+      </ion-item>
+      <div *ngIf="formErrors.fechaDeNacimiento" style="color: red; font-size: 0.9rem;">La fecha de nacimiento es obligatoria.</div>
+
+      <div class="buttons" style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
+        <ion-button shape="round" color="success" *ngIf="!isEditing" (click)="addUsuario()" [disabled]="!validarFormulario()">Añadir</ion-button>
+        <ion-button shape="round" color="warning" *ngIf="isEditing" (click)="updateUsuario()" [disabled]="!validarFormulario()">Actualizar</ion-button>
+        <ion-button shape="round" color="danger" *ngIf="isEditing" (click)="resetForm()">Cancelar</ion-button>
+        <ion-button shape="round" color="medium" (click)="volverAtras()">Volver</ion-button>
+
+      </div>
+    </ion-card-content>
+  </ion-card>
+</div>
+

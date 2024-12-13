@@ -1,12 +1,4 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
+<div class="mainPage" style="background: linear-gradient(180deg, rgba(67, 110, 203, 1) 0%, rgba(166, 79, 196, 0.9) 91%); color: #fff; height: 100vh;">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Blank</ion-title>
@@ -14,10 +6,15 @@
   </ion-header>
 
   <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <strong>Ready to create a new Timeline?</strong>
+  </div>
+  <div id="containerButtons">
+    <ion-button expand="block" (click)="gotoUsuarios()">Usuarios</ion-button>
   </div>
 
-  <ion-button expand="block" (click)="gotoUsuarios()">Usuarios</ion-button>
-
-</ion-content>
+    <div style="position: fixed; bottom: 20em; left: 50%; transform: translateX(-50%); z-index: 1000;">
+      <ion-fab-button (click)="gotoTimelines()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </div>
+</div>

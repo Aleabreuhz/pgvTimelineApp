@@ -1,0 +1,61 @@
+<ion-header [translucent]="true">
+  <ion-toolbar style="text-align: center; background: transparent;">
+    <ion-title style="font-size: 1.5rem; color: #fff;">timelines</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<div style="background: linear-gradient(180deg, rgba(67, 110, 203, 1) 0%, rgba(166, 79, 196, 0.9) 91%); color: #fff; height: 100vh; padding: 1em;">
+  <ion-header collapse="condense">
+    <ion-toolbar style="text-align: center; background: transparent;">
+      <ion-title size="large" style="color: #fff;">timelines</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-list style="background: transparent; border-radius: 15px; padding: 1em;">
+    <ion-item *ngFor="let t of timelines" style="border-radius: 15px; margin-bottom: 10px;">
+      <ion-label>
+        <p>{{ t.id }}</p>
+        <h2>{{ t.titulo }}</h2>
+        <p>{{ t.descripcion }}</p>
+        <p>Creador: {{ t.nombre_creador }}</p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button (click)="editTimelines(t)">Editar</ion-button>
+        <ion-button color="danger" (click)="deleteTimelines(t.id)">Borrar</ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+
+  <ion-card style="background: transparent; box-shadow: none;">
+    <ion-card-header>
+      <ion-card-title style="color: #fff; text-align: center;">{{ isEditing ? 'Editar Timelines' : 'Añadir Timelines' }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item style="background: rgba(255, 255, 255, 0.8); border-radius: 10px; margin-bottom: 10px;">
+        <ion-label position="floating">Titulo</ion-label>
+        <ion-input [(ngModel)]="timelinesForm.titulo"></ion-input>
+      </ion-item>
+
+      <ion-item style="background: rgba(255, 255, 255, 0.8); border-radius: 10px; margin-bottom: 10px;">
+        <ion-label position="floating">Descripcion</ion-label>
+        <ion-input [(ngModel)]="timelinesForm.descripcion"></ion-input>
+      </ion-item>
+
+      <ion-item style="background: rgba(255, 255, 255, 0.8); border-radius: 10px; margin-bottom: 10px;">
+        <ion-label position="floating">Creador</ion-label>
+        <ion-input
+          [(ngModel)]="timelinesForm.nombre_creador"
+          (ionBlur)="verificarUsuario(timelinesForm.nombre_creador)"
+          placeholder="Escribe el nombre de usuario">
+        </ion-input>
+      </ion-item>
+
+      <div class="buttons" style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
+      <ion-button shape="round" color="success" *ngIf="!isEditing" (click)="addTimelines()">Añadir</ion-button>
+      <ion-button shape="round" color="warning" *ngIf="isEditing" (click)="updateTimelines()">Actualizar</ion-button>
+      <ion-button shape="round" color="danger" *ngIf="isEditing" (click)="resetForm()">Cancelar</ion-button>
+      <ion-button shape="round" color="medium" (click)="volverAtras()">Volver</ion-button>
+</div>
+    </ion-card-content>
+  </ion-card>
+</div>

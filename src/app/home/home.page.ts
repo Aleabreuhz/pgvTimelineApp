@@ -12,4 +12,7 @@ export class HomePage {
   gotoUsuarios() {
     this.router.navigateByUrl("/usuarios");
 }
+  gotoTimelines() {
+    this.router.navigateByUrl("/timelines");
+  }
 }

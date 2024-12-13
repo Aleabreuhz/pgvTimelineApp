@@ -4,24 +4,24 @@ import { HttpClient } from "@angular/common/http";
 @Injectable({
   providedIn: 'root'
 })
-export class UsuariosService {
+export class TimelinesService {
 
-  endpoint = 'http://localhost:8080/api/usuarios';
+  endpoint = 'http://localhost:8080/api/timelines';
   constructor(private  httpClient: HttpClient) { }
-  getUsuarios(){
+  getTimelines(){
     return this.httpClient.get(this.endpoint);
   }
-  addUsuario(usuario: any) {
-    return this.httpClient.post(this.endpoint, usuario);
+  addTimelines(timeline: any) {
+    return this.httpClient.post(this.endpoint, timeline);
   }
 
   // Editar un usuario existente
-  updateUsuario(id: number, usuario: any) {
-    return this.httpClient.put(`${this.endpoint}/${id}`, usuario);
+  updateTimelines(id: number, timeline: any) {
+    return this.httpClient.put(`${this.endpoint}/${id}`, timeline);
   }
 
   // Eliminar un usuario
-  deleteUsuario(id: number) {
+  deleteTimelines(id: number) {
     return this.httpClient.delete(`${this.endpoint}/${id}`);
   }
 }
